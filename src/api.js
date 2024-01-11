@@ -8,7 +8,9 @@ async function getWeatherLocation() {
   const response = await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester", { mode: "cors" });
   const weatherData = await response.json();
 
-  console.log(weatherData.location);
+  const locationContainer = document.createElement("div");
+  locationContainer.className = "location-container";
+
   const locationName = document.createElement("h2");
   locationName.innerText = weatherData.location.name;
 
@@ -24,11 +26,12 @@ async function getWeatherLocation() {
   const condition = document.createElement("p");
   condition.innerText = `${weatherData.current.condition.text} °C`;
 
-  content.appendChild(locationName);
-  content.appendChild(locationCountry);
-  content.appendChild(locationTime);
-  content.appendChild(locationTempC);
-  content.appendChild(condition);
+  locationContainer.appendChild(locationName);
+  locationContainer.appendChild(locationCountry);
+  locationContainer.appendChild(locationTime);
+  locationContainer.appendChild(locationTempC);
+  locationContainer.appendChild(condition);
+  content.appendChild(locationContainer);
 }
 
 async function getSevenDayForecast() {
@@ -38,7 +41,18 @@ async function getSevenDayForecast() {
 
   const forecastData = await response.json();
 
-  console.log(forecastData.forecast.forecastday);
+  const forecastDay = forecastData.forecast.forecastday;
+
+  const dateInfo = document.createElement("ul");
+
+  forecastDay.forEach((data) => {
+    const forecastDate = document.createElement("li");
+    forecastDate.innerText = data.date;
+    console.log("forecastDate", forecastDate);
+    dateInfo.appendChild(forecastDate);
+  });
+
+  content.appendChild(dateInfo);
 }
 
 getWeatherLocation();

@@ -1,3 +1,5 @@
-.hello {
-  color: red;
+.location-container {
+  border: 2px solid black;
+  width: 15rem;
+  text-align: center;
 }
