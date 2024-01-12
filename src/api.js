@@ -26,11 +26,15 @@ async function getWeatherLocation() {
   const condition = document.createElement("p");
   condition.innerText = `${weatherData.current.condition.text} °C`;
 
+  const icon = document.createElement("img");
+  icon.src = weatherData.current.condition.icon;
+
   locationContainer.appendChild(locationName);
   locationContainer.appendChild(locationCountry);
   locationContainer.appendChild(locationTime);
   locationContainer.appendChild(locationTempC);
   locationContainer.appendChild(condition);
+  locationContainer.appendChild(icon);
   content.appendChild(locationContainer);
 }
 
@@ -55,10 +59,17 @@ async function getSevenDayForecast() {
     forecastTempHigh.innerText = `${data.day.maxtemp_c} °C (High)`;
     const forecastTempLow = document.createElement("li");
     forecastTempLow.innerText = `${data.day.mintemp_c} °C (Low)`;
+    const forecastCondition = document.createElement("li");
+    forecastCondition.innerText = data.day.condition.text;
+    const forecastIcon = document.createElement("img");
+    forecastIcon.src = data.day.condition.icon;
 
     singleForecastDay.appendChild(forecastDate);
     singleForecastDay.appendChild(forecastTempHigh);
     singleForecastDay.appendChild(forecastTempLow);
+    singleForecastDay.appendChild(forecastCondition);
+    singleForecastDay.appendChild(forecastIcon);
+
     forecastDays.appendChild(singleForecastDay);
   });
 
