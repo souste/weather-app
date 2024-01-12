@@ -3,3 +3,14 @@
   width: 15rem;
   text-align: center;
 }
+
+.forecast-days-container {
+  list-style: none;
+  display: flex;
+}
+
+.single-forecast-day-container {
+  margin-right: 20px;
+  border: 2px solid black;
+  padding: 20px;
+}

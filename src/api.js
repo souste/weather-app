@@ -40,19 +40,29 @@ async function getSevenDayForecast() {
   });
 
   const forecastData = await response.json();
-
   const forecastDay = forecastData.forecast.forecastday;
 
-  const dateInfo = document.createElement("ul");
+  const forecastDays = document.createElement("ul");
+  forecastDays.className = "forecast-days-container";
 
   forecastDay.forEach((data) => {
+    const singleForecastDay = document.createElement("div");
+    singleForecastDay.className = "single-forecast-day-container";
+
     const forecastDate = document.createElement("li");
     forecastDate.innerText = data.date;
-    console.log("forecastDate", forecastDate);
-    dateInfo.appendChild(forecastDate);
+    const forecastTempHigh = document.createElement("li");
+    forecastTempHigh.innerText = `${data.day.maxtemp_c} °C (High)`;
+    const forecastTempLow = document.createElement("li");
+    forecastTempLow.innerText = `${data.day.mintemp_c} °C (Low)`;
+
+    singleForecastDay.appendChild(forecastDate);
+    singleForecastDay.appendChild(forecastTempHigh);
+    singleForecastDay.appendChild(forecastTempLow);
+    forecastDays.appendChild(singleForecastDay);
   });
 
-  content.appendChild(dateInfo);
+  content.appendChild(forecastDays);
 }
 
 getWeatherLocation();
