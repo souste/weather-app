@@ -38,8 +38,8 @@ async function getWeatherLocation() {
   content.appendChild(locationContainer);
 }
 
-async function getSevenDayForecast() {
-  const response = await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=manchester&days=7", {
+async function getThreeDayForecast() {
+  const response = await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester&days=3", {
     mode: "cors",
   });
 
@@ -53,14 +53,20 @@ async function getSevenDayForecast() {
     const singleForecastDay = document.createElement("div");
     singleForecastDay.className = "single-forecast-day-container";
 
+    const dateObject = new Date(data.date);
+    const dayOfWeek = dateObject.toLocaleDateString("en-US", { weekday: "long" });
     const forecastDate = document.createElement("li");
-    forecastDate.innerText = data.date;
+    forecastDate.innerText = dayOfWeek;
+
     const forecastTempHigh = document.createElement("li");
     forecastTempHigh.innerText = `${data.day.maxtemp_c} °C (High)`;
+
     const forecastTempLow = document.createElement("li");
     forecastTempLow.innerText = `${data.day.mintemp_c} °C (Low)`;
+
     const forecastCondition = document.createElement("li");
     forecastCondition.innerText = data.day.condition.text;
+
     const forecastIcon = document.createElement("img");
     forecastIcon.src = data.day.condition.icon;
 
@@ -78,6 +84,6 @@ async function getSevenDayForecast() {
 
 getWeatherLocation();
 
-getSevenDayForecast();
+getThreeDayForecast();
 
-export { getWeatherLocation, getSevenDayForecast };
+export { getWeatherLocation, getThreeDayForecast };
