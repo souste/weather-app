@@ -1,7 +1,26 @@
 const content = document.getElementById("content");
 
-async function getWeatherLocation() {
-  const response = await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester", { mode: "cors" });
+const formContainer = document.createElement("div");
+formContainer.className = "form-container";
+
+const formHTML = `
+<form class="form" action="">
+<label for="location">Enter City:</label>
+<input type="text" id="location" name="location" placeholder="Manchester" />
+<button class="submit-button">Submit</button>
+</form>
+`;
+
+formContainer.innerHTML = formHTML;
+content.appendChild(formContainer);
+
+const locationInput = document.getElementById("location");
+const submitButton = document.querySelector(".submit-button");
+
+async function getWeatherLocation(locationValue) {
+  const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}`, {
+    mode: "cors",
+  });
   const weatherData = await response.json();
 
   const locationContainer = document.createElement("div");
@@ -34,8 +53,8 @@ async function getWeatherLocation() {
   content.appendChild(locationContainer);
 }
 
-async function getThreeDayForecast() {
-  const response = await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester&days=3", {
+async function getThreeDayForecast(locationValue) {
+  const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}&days=3`, {
     mode: "cors",
   });
 
@@ -77,5 +96,16 @@ async function getThreeDayForecast() {
 
   content.appendChild(forecastDays);
 }
+
+let locationValue = "";
+
+submitButton.addEventListener("click", async (event) => {
+  event.preventDefault();
+  locationValue = locationInput.value;
+  console.log(locationInput.value);
+
+  await getWeatherLocation(locationValue);
+  await getThreeDayForecast(locationValue);
+});
 
 export { getWeatherLocation, getThreeDayForecast };
