@@ -1,11 +1,14 @@
 import "./form";
 
 const content = document.getElementById("content");
+const weatherContainer = document.createElement("div");
+weatherContainer.className = "weather-container";
+content.appendChild(weatherContainer);
 const locationInput = document.getElementById("location");
 const submitButton = document.querySelector(".submit-button");
 
 async function getWeatherLocation(locationValue) {
-  const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}`, {
+  const response = await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester", {
     mode: "cors",
   });
   const weatherData = await response.json();
@@ -14,34 +17,41 @@ async function getWeatherLocation(locationValue) {
   locationContainer.className = "location-container";
 
   const locationName = document.createElement("h2");
+  locationName.className = "location-name";
   locationName.innerText = weatherData.location.name;
 
   const locationCountry = document.createElement("p");
+  locationCountry.className = "location-country";
   locationCountry.innerText = weatherData.location.country;
 
   const locationTime = document.createElement("p");
+  locationTime.className = "location-time";
   locationTime.innerText = weatherData.location.localtime;
 
   const locationTempC = document.createElement("p");
+  locationTempC.className = "location-temp-c";
   locationTempC.innerText = `${weatherData.current.temp_c} °C`;
 
-  const condition = document.createElement("p");
-  condition.innerText = `${weatherData.current.condition.text} °C`;
+  const locationCondition = document.createElement("p");
+  locationCondition.className = "location-condition";
+  locationCondition.innerText = `${weatherData.current.condition.text} °C`;
 
-  const icon = document.createElement("img");
-  icon.src = weatherData.current.condition.icon;
+  const locationIcon = document.createElement("img");
+  locationIcon.className = "location-icon";
+  locationIcon.src = weatherData.current.condition.icon;
 
   locationContainer.appendChild(locationName);
   locationContainer.appendChild(locationCountry);
   locationContainer.appendChild(locationTime);
   locationContainer.appendChild(locationTempC);
-  locationContainer.appendChild(condition);
-  locationContainer.appendChild(icon);
-  content.appendChild(locationContainer);
+  locationContainer.appendChild(locationCondition);
+  locationContainer.appendChild(locationIcon);
+
+  weatherContainer.appendChild(locationContainer);
 }
 
 async function getThreeDayForecast(locationValue) {
-  const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}&days=3`, {
+  const response = await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester&days=3", {
     mode: "cors",
   });
 
@@ -58,6 +68,7 @@ async function getThreeDayForecast(locationValue) {
     const dateObject = new Date(data.date);
     const dayOfWeek = dateObject.toLocaleDateString("en-US", { weekday: "long" });
     const forecastDate = document.createElement("li");
+    forecastDate.className = "forecast-date";
     forecastDate.innerText = dayOfWeek;
 
     const forecastTempHigh = document.createElement("li");
@@ -81,7 +92,7 @@ async function getThreeDayForecast(locationValue) {
     forecastDays.appendChild(singleForecastDay);
   });
 
-  content.appendChild(forecastDays);
+  weatherContainer.appendChild(forecastDays);
 }
 
 let locationValue = "";

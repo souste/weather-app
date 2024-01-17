@@ -1,12 +1,12 @@
 import "./style.css";
 import { getWeatherLocation, getThreeDayForecast } from "./api";
 
-const content = document.getElementById("content");
+// const content = document.getElementById("content");
 
-const header = document.createElement("h1");
-header.innerText = "Weather App";
+// const header = document.createElement("h1");
+// header.innerText = "Weather App";
 
-content.appendChild(header);
+// content.appendChild(header);
 
 getWeatherLocation();
 

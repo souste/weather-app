@@ -5,22 +5,32 @@
   font-style: normal;
 }
 
-* {
+body {
   font-family: "ValeraRound";
+  background: url("background.jpg");
+  color: red;
+  font-weight: bold;
+  background-size: cover;
+}
+
+.weather-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
 }
 
 /* FORM */
 #content {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin-left: 200px;
   margin-top: 50px;
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   width: 500px;
   align-items: center;
 }
@@ -62,15 +72,33 @@ input {
   }
 }
 
-#location {
-  width: 300px;
-}
+/* SINGLE LOCATION FORECAST */
 
 .location-container {
-  border: 2px solid black;
-  width: 15rem;
+  /* border: 2px solid black; */
   text-align: center;
 }
+
+.location-name {
+  font-size: 80px;
+}
+
+.location-country {
+  font-size: 40px;
+}
+
+.location-time,
+.location-temp-c,
+.location-condition {
+  font-size: 20px;
+}
+
+.location-icon {
+  height: auto;
+  width: 150px;
+}
+
+/* THREE DAY FORECASTS */
 
 .forecast-days-container {
   list-style: none;
@@ -79,7 +107,13 @@ input {
 
 .single-forecast-day-container {
   margin-right: 20px;
-  border: 2px solid black;
+  /* border: 2px solid black; */
+  height: 150px;
   padding: 20px;
   text-align: center;
+}
+
+.forecast-date {
+  font-weight: bold;
+  font-size: 20px;
 }
