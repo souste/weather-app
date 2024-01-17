@@ -5,9 +5,8 @@ formContainer.className = "form-container";
 
 const formHTML = `
 <form class="form" action="">
-<label for="location">Enter City:</label>
-<input type="text" id="location" name="location" placeholder="Manchester" />
-<button class="submit-button">Submit</button>
+<input type="text" id="location" name="location" placeholder="Enter Location" />
+<button class="submit-button"><img src="../src/search.png" /></button>
 </form>
 `;
 

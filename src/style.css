@@ -30,53 +30,37 @@ body {
 .form-container {
   display: flex;
   flex-direction: column;
-  /* border: 2px solid black; */
-  width: 500px;
   align-items: center;
 }
 
 .form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  gap: 10px;
 }
 
 input {
   height: 25px;
-  width: 50%;
+  width: 200px;
   padding: 2px 23px 2px 30px;
   background-color: #f5f5f5;
   border-radius: 10px;
 }
 
 .submit-button {
-  margin: 10px;
-  width: 120px;
-  display: inline-block;
-  outline: 0;
-  border: 0;
-  cursor: pointer;
-  border-radius: 8px;
-  padding: 14px 24px 16px;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1;
-  transition:
-    transform 200ms,
-    background 200ms;
-  background: transparent;
-  color: #000000;
-  box-shadow: 0 0 0 3px #000000 inset;
-  :hover {
-    transform: translateY(-2px);
-  }
+  opacity: 50%;
+  border-radius: 5%;
 }
 
 /* SINGLE LOCATION FORECAST */
 
 .location-container {
-  /* border: 2px solid black; */
   text-align: center;
+  background-color: white;
+  opacity: 50%;
+  border-radius: 5%;
+  padding: 10px;
 }
 
 .location-name {
@@ -107,9 +91,11 @@ input {
 
 .single-forecast-day-container {
   margin-right: 20px;
-  /* border: 2px solid black; */
   height: 150px;
-  padding: 20px;
+  background-color: white;
+  opacity: 50%;
+  border-radius: 5%;
+  padding: 10px;
   text-align: center;
 }
 
