@@ -8,7 +8,6 @@
 body {
   font-family: "ValeraRound";
   background: url("background.jpg");
-  color: red;
   font-weight: bold;
   background-size: cover;
 }
@@ -41,8 +40,8 @@ body {
 }
 
 input {
-  height: 25px;
-  width: 200px;
+  height: 30px;
+  width: 300px;
   padding: 2px 23px 2px 30px;
   background-color: #f5f5f5;
   border-radius: 10px;
@@ -51,6 +50,10 @@ input {
 .submit-button {
   opacity: 50%;
   border-radius: 5%;
+}
+
+.submit-button:hover {
+  cursor: pointer;
 }
 
 /* SINGLE LOCATION FORECAST */
@@ -65,6 +68,7 @@ input {
 
 .location-name {
   font-size: 80px;
+  color: red;
 }
 
 .location-country {
@@ -97,9 +101,11 @@ input {
   border-radius: 5%;
   padding: 10px;
   text-align: center;
+  width: min(200px, 100%);
 }
 
 .forecast-date {
   font-weight: bold;
   font-size: 20px;
+  color: red;
 }

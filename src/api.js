@@ -7,14 +7,22 @@ content.appendChild(weatherContainer);
 const locationInput = document.getElementById("location");
 const submitButton = document.querySelector(".submit-button");
 
-async function getWeatherLocation(locationValue) {
-  const response = await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester", {
-    mode: "cors",
-  });
-  const weatherData = await response.json();
+const locationContainer = document.createElement("div");
+locationContainer.className = "location-container";
 
-  const locationContainer = document.createElement("div");
-  locationContainer.className = "location-container";
+const forecastDays = document.createElement("ul");
+forecastDays.className = "forecast-days-container";
+
+async function getWeatherLocation(locationValue) {
+  const response = locationValue
+    ? await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}`, {
+        mode: "cors",
+      })
+    : await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester", {
+        mode: "cors",
+      });
+
+  const weatherData = await response.json();
 
   const locationName = document.createElement("h2");
   locationName.className = "location-name";
@@ -51,15 +59,16 @@ async function getWeatherLocation(locationValue) {
 }
 
 async function getThreeDayForecast(locationValue) {
-  const response = await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester&days=3", {
-    mode: "cors",
-  });
+  const response = locationValue
+    ? await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}&days=3`, {
+        mode: "cors",
+      })
+    : await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester&days=3", {
+        mode: "cors",
+      });
 
   const forecastData = await response.json();
   const forecastDay = forecastData.forecast.forecastday;
-
-  const forecastDays = document.createElement("ul");
-  forecastDays.className = "forecast-days-container";
 
   forecastDay.forEach((data) => {
     const singleForecastDay = document.createElement("div");
@@ -98,6 +107,14 @@ async function getThreeDayForecast(locationValue) {
 let locationValue = "";
 
 submitButton.addEventListener("click", async (event) => {
+  while (locationContainer.firstChild) {
+    locationContainer.removeChild(locationContainer.firstChild);
+  }
+  while (forecastDays.firstChild) {
+    forecastDays.removeChild(forecastDays.firstChild);
+  }
+
+  forecastDays.innerHTML = "";
   event.preventDefault();
   locationValue = locationInput.value;
   console.log(locationInput.value);
