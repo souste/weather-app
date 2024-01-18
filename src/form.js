@@ -8,6 +8,7 @@ const formHTML = `
 <input type="text" id="location" name="location" placeholder="Enter Location" />
 <button class="submit-button"><img src="../src/search.png" /></button>
 </form>
+<button class="toggle-button">F</button>
 `;
 
 formContainer.innerHTML = formHTML;

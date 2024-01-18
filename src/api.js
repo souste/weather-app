@@ -136,4 +136,18 @@ submitButton.addEventListener("click", async (event) => {
   await getThreeDayForecast(locationValue);
 });
 
+// TOGGLE BUTTON
+
+const toggleButton = document.querySelector(".toggle-button");
+
+let click = false;
+toggleButton.addEventListener("click", () => {
+  click = !click;
+  if (click) {
+    toggleButton.innerText = "C";
+  } else {
+    toggleButton.innerText = "F";
+  }
+});
+
 export { getWeatherLocation, getThreeDayForecast };
