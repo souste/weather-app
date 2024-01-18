@@ -13,17 +13,9 @@ locationContainer.className = "location-container";
 const forecastDays = document.createElement("ul");
 forecastDays.className = "forecast-days-container";
 
-async function getWeatherLocation(locationValue) {
-  const response = locationValue
-    ? await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}`, {
-        mode: "cors",
-      })
-    : await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester", {
-        mode: "cors",
-      });
+// CREATE AND GET SINGLE WEATHER LOCATION
 
-  const weatherData = await response.json();
-
+function createWeatherLocation(weatherData) {
   const locationName = document.createElement("h2");
   locationName.className = "location-name";
   locationName.innerText = weatherData.location.name;
@@ -54,22 +46,27 @@ async function getWeatherLocation(locationValue) {
   locationContainer.appendChild(locationTempC);
   locationContainer.appendChild(locationCondition);
   locationContainer.appendChild(locationIcon);
+}
+
+async function getWeatherLocation(locationValue) {
+  const response = locationValue
+    ? await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}`, {
+        mode: "cors",
+      })
+    : await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester", {
+        mode: "cors",
+      });
+
+  const weatherData = await response.json();
+
+  createWeatherLocation(weatherData);
 
   weatherContainer.appendChild(locationContainer);
 }
 
-async function getThreeDayForecast(locationValue) {
-  const response = locationValue
-    ? await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}&days=3`, {
-        mode: "cors",
-      })
-    : await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester&days=3", {
-        mode: "cors",
-      });
+// CREATE AND GET THREE DAY WEATHER FORECAST
 
-  const forecastData = await response.json();
-  const forecastDay = forecastData.forecast.forecastday;
-
+function createThreeDayWeatherForecast(forecastDay) {
   forecastDay.forEach((data) => {
     const singleForecastDay = document.createElement("div");
     singleForecastDay.className = "single-forecast-day-container";
@@ -100,9 +97,25 @@ async function getThreeDayForecast(locationValue) {
 
     forecastDays.appendChild(singleForecastDay);
   });
+}
+
+async function getThreeDayForecast(locationValue) {
+  const response = locationValue
+    ? await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}&days=3`, {
+        mode: "cors",
+      })
+    : await fetch("https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=Manchester&days=3", {
+        mode: "cors",
+      });
+
+  const forecastData = await response.json();
+  const forecastDay = forecastData.forecast.forecastday;
+  createThreeDayWeatherForecast(forecastDay);
 
   weatherContainer.appendChild(forecastDays);
 }
+
+// SUBMIT BUTTON
 
 let locationValue = "";
 

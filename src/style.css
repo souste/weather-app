@@ -64,6 +64,7 @@ input {
   opacity: 50%;
   border-radius: 5%;
   padding: 10px;
+  width: min(500px, 100%);
 }
 
 .location-name {
@@ -95,7 +96,7 @@ input {
 
 .single-forecast-day-container {
   margin-right: 20px;
-  height: 150px;
+  height: 180px;
   background-color: white;
   opacity: 50%;
   border-radius: 5%;
