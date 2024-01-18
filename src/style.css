@@ -26,6 +26,10 @@ body {
   margin-top: 50px;
 }
 
+.outside-form-container {
+  display: flex;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;
@@ -109,4 +113,53 @@ input {
   font-weight: bold;
   font-size: 20px;
   color: red;
+}
+
+/* TOGGLE switch */
+.toggle {
+  display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-left: 100px;
+}
+
+.toggle-switch {
+  background: white;
+  width: 80px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.toggle-switch:after {
+  content: " ";
+  display: block;
+  width: 40px;
+  height: 30px;
+  background-color: black;
+  border: 3px solid #fff;
+  border-top: 0;
+  border-bottom: 0;
+  margin-left: -3px;
+  transition: all 0.1s ease-in-out;
+}
+
+.active .toggle-switch:after {
+  margin-left: 40px;
+}
+
+.toggle-label {
+  display: inline-block;
+  line-height: 30px;
+  color: red; /* default color for toggle-label */
+}
+
+.active .toggle-label {
+  color: white;
 }

@@ -13,6 +13,9 @@ locationContainer.className = "location-container";
 const forecastDays = document.createElement("ul");
 forecastDays.className = "forecast-days-container";
 
+const toggleSwitch = document.querySelector(".toggle-switch");
+let click = false;
+
 // CREATE AND GET SINGLE WEATHER LOCATION
 
 function createWeatherLocation(weatherData) {
@@ -139,22 +142,20 @@ submitButton.addEventListener("click", async (event) => {
 
   await getWeatherLocation(locationValue);
   await getThreeDayForecast(locationValue);
+
+  toggleSwitch.parentElement.classList.remove("active");
+  click = false;
 });
 
-// TOGGLE BUTTON
+// TOGGLE SWITCH
 
-const toggleButton = document.querySelector(".toggle-button");
-
-let click = false;
-toggleButton.addEventListener("click", () => {
+toggleSwitch.addEventListener("click", () => {
   const locationTemp = document.querySelector(".location-temp-c");
   const forecastTempHigh = document.querySelectorAll(".forecast-temp-high");
   const forecastTempLow = document.querySelectorAll(".forecast-temp-low");
 
   click = !click;
   if (click) {
-    toggleButton.innerText = "C";
-
     locationTemp.innerText = `${weatherData.current.temp_f} °F`;
 
     forecastTempHigh.forEach((day, index) => {
@@ -165,7 +166,6 @@ toggleButton.addEventListener("click", () => {
       day.innerText = `${forecastDay[index].day.mintemp_f} °F (Low)`;
     });
   } else {
-    toggleButton.innerText = "F";
     locationTemp.innerText = `${weatherData.current.temp_c} °C`;
 
     forecastTempHigh.forEach((day, index) => {
@@ -177,5 +177,12 @@ toggleButton.addEventListener("click", () => {
     });
   }
 });
+
+function toggleHandler(event) {
+  event.preventDefault();
+  event.currentTarget.parentElement.classList.toggle("active");
+}
+
+toggleSwitch.addEventListener("click", toggleHandler);
 
 export { getWeatherLocation, getThreeDayForecast };
