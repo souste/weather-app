@@ -48,6 +48,7 @@ function createWeatherLocation(weatherData) {
   locationContainer.appendChild(locationIcon);
 }
 
+let weatherData;
 async function getWeatherLocation(locationValue) {
   const response = locationValue
     ? await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}`, {
@@ -57,7 +58,7 @@ async function getWeatherLocation(locationValue) {
         mode: "cors",
       });
 
-  const weatherData = await response.json();
+  weatherData = await response.json();
 
   createWeatherLocation(weatherData);
 
@@ -78,9 +79,11 @@ function createThreeDayWeatherForecast(forecastDay) {
     forecastDate.innerText = dayOfWeek;
 
     const forecastTempHigh = document.createElement("li");
+    forecastTempHigh.className = "forecast-temp-high";
     forecastTempHigh.innerText = `${data.day.maxtemp_c} °C (High)`;
 
     const forecastTempLow = document.createElement("li");
+    forecastTempLow.className = "forecast-temp-low";
     forecastTempLow.innerText = `${data.day.mintemp_c} °C (Low)`;
 
     const forecastCondition = document.createElement("li");
@@ -99,6 +102,8 @@ function createThreeDayWeatherForecast(forecastDay) {
   });
 }
 
+let forecastDay;
+
 async function getThreeDayForecast(locationValue) {
   const response = locationValue
     ? await fetch(`https://api.weatherapi.com/v1/forecast.json?key=164214608c0c4ca6b2a112803240901&q=${locationValue}&days=3`, {
@@ -109,7 +114,7 @@ async function getThreeDayForecast(locationValue) {
       });
 
   const forecastData = await response.json();
-  const forecastDay = forecastData.forecast.forecastday;
+  forecastDay = forecastData.forecast.forecastday;
   createThreeDayWeatherForecast(forecastDay);
 
   weatherContainer.appendChild(forecastDays);
@@ -142,11 +147,34 @@ const toggleButton = document.querySelector(".toggle-button");
 
 let click = false;
 toggleButton.addEventListener("click", () => {
+  const locationTemp = document.querySelector(".location-temp-c");
+  const forecastTempHigh = document.querySelectorAll(".forecast-temp-high");
+  const forecastTempLow = document.querySelectorAll(".forecast-temp-low");
+
   click = !click;
   if (click) {
     toggleButton.innerText = "C";
+
+    locationTemp.innerText = `${weatherData.current.temp_f} °F`;
+
+    forecastTempHigh.forEach((day, index) => {
+      day.innerText = `${forecastDay[index].day.maxtemp_f} °F (High)`;
+    });
+
+    forecastTempLow.forEach((day, index) => {
+      day.innerText = `${forecastDay[index].day.mintemp_f} °F (Low)`;
+    });
   } else {
     toggleButton.innerText = "F";
+    locationTemp.innerText = `${weatherData.current.temp_c} °C`;
+
+    forecastTempHigh.forEach((day, index) => {
+      day.innerText = `${forecastDay[index].day.maxtemp_c} °F (High)`;
+    });
+
+    forecastTempLow.forEach((day, index) => {
+      day.innerText = `${forecastDay[index].day.mintemp_c} °F (Low)`;
+    });
   }
 });
 
