@@ -19,7 +19,7 @@ body {
 }
 
 /* FORM */
-#content {
+.content {
   display: flex;
   flex-direction: column;
   margin-left: 200px;

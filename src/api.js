@@ -1,6 +1,6 @@
 import "./form";
 
-const content = document.getElementById("content");
+const content = document.querySelector(".content");
 const weatherContainer = document.createElement("div");
 weatherContainer.className = "weather-container";
 content.appendChild(weatherContainer);
