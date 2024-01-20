@@ -5,8 +5,6 @@ module.exports = {
   mode: "development",
   entry: {
     index: "./src/index.js",
-    api: "./src/api.js",
-    form: "./src/form.js",
   },
   devtool: "inline-source-map",
   devServer: {
@@ -15,14 +13,12 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "Development",
-      base: "/",
     }),
   ],
   output: {
     filename: "index.bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
-    publicPath: "/",
   },
   optimization: {
     runtimeChunk: "single",
