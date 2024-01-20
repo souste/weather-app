@@ -16,8 +16,9 @@ module.exports = {
     }),
   ],
   output: {
-    filename: "index.bundle.js",
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/weather-app/dist/",
     clean: true,
   },
   optimization: {
